@@ -1,0 +1,32 @@
+body {
+}
+
+#main{
+  width: 380px;
+  min-height: 180px;
+}
+
+.no-padding-bottom{
+  padding-bottom: 0px;
+}
+
+.font-size-16{
+  font-size: 16px;
+}
+
+.animate-show {
+  line-height: 20px;
+  opacity: 1;
+  padding: 10px;
+  background: white;
+}
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+  transition: all linear 0.4s;
+}
+
+.animate-show.ng-hide {
+  line-height: 0;
+  opacity: 0;
+  padding: 0 10px;
+}
