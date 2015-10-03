@@ -1,0 +1,7 @@
+<md-card class="animate-show" ng-repeat="task in history">
+  <md-card-content layout-padding>
+    <p>{{task.client}}, <b>{{calcDiff(task)}}</b></p>
+    <p>Started: {{task.startTime | amCalendar}}</p>
+    <md-button class="md-raised md-primary" layout-align="right" ng-click="edit(task)">Edit</md-button>
+  </md-card-content>
+</md-card>

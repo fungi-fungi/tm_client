@@ -8,15 +8,6 @@ angular.module('gwTimeMachine')
     service.login = function(user){
       var defer = $q.defer();
 
-      /*$http({
-        method: 'POST',
-        url: $rootScope.endPoint + "sessions?email=" + user.email + "&password=" + user.password
-      }).then(function(res){
-
-      }, function(err){
-
-      });
-*/
       $http.post($rootScope.endPoint + "sessions?email=" + user.email + "&password=" + user.password).then(function(res) {
         defer.resolve(res);
       }, function(err) {
@@ -38,6 +29,17 @@ angular.module('gwTimeMachine')
       return defer.promise;
     }
 
+    service.getHistory = function(){
+      var defer = $q.defer();
+
+      $http.get($rootScope.endPoint + "tasks/history", { headers: getCredentialsHeaders()}).then(function(res){
+          defer.resolve(res);
+        },function(err){
+          defer.reject(err);
+        });
+
+      return defer.promise;
+    }
 
     service.startNewTask = function(data){
       var defer = $q.defer();
@@ -97,6 +99,29 @@ angular.module('gwTimeMachine')
 
       return defer.promise;
     };
+
+    service.editTaskTimes = function(task){
+      var defer = $q.defer();
+
+      $http({
+        method: 'PUT',
+        url: $rootScope.endPoint + "tasks/" + task.id,
+        headers: getCredentialsHeaders(),
+        transformRequest: function(obj) {
+          var str = [];
+          for(var p in obj)
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          return str.join("&");
+        },
+        data: task
+      }).then(function(res){
+        defer.resolve(res);
+      },function(err){
+        defer.reject(err);
+      });
+
+      return defer.promise;
+    }
 
     function preparePostData(data){
       return {

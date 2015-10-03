@@ -1,23 +1,28 @@
-<div ng-controller="LoginCtrl" class="login-form">
+<div layout="row" layout-wrap ng-controller="LoginCtrl">
 
-  <md-card>
-    <md-card-content layout-padding>
-      <form name="loginForm">
-        <md-input-container md-no-float>
-          
-          <ng-md-icon icon="email"></ng-md-icon>
-          <input ng-model="user.email" required placeholder="Email" type="email" name="email">
-        </md-input-container>
+  <md-content>
+    <div style="height: 200px;"></div>
 
-        <md-input-container md-no-float>
-          
-          <ng-md-icon icon="vpn_key"></ng-md-icon>
-          <input ng-model="user.password" required placeholder="Password" type="password"name="password" >
-        </md-input-container>
+    <md-card>
+      <md-card-content layout-padding>
+        <form name="loginForm">
+          <md-input-container md-no-float>
 
-        <md-button ng-disabled="loginForm.$invalid" type="submit" class="md-raised md-primary" aria-label="user" ng-click="login(user)">Login</md-button>
-      </form>
-    </md-card-content>
-  </md-card>
+            <ng-md-icon icon="email"></ng-md-icon>
+            <input ng-model="user.email" required placeholder="Email" type="email" name="email">
+          </md-input-container>
+
+          <md-input-container md-no-float>
+
+            <ng-md-icon icon="vpn_key"></ng-md-icon>
+            <input ng-model="user.password" required placeholder="Password" type="password"name="password" >
+          </md-input-container>
+
+          <md-button ng-disabled="loginForm.$invalid" type="submit" class="md-raised md-primary" aria-label="user" ng-click="login(user)">Login</md-button>
+        </form>
+      </md-card-content>
+    </md-card>
+
+    </md-content>
 
 </div>

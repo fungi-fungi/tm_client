@@ -1,0 +1,68 @@
+
+<md-card class="animate-show" ng-hide="$storage.current">
+  <md-card-content>
+    <md-input-container md-no-float class="no-padding-bottom">
+        <md-autocomplete
+          md-selected-item="ctrl.selectedItem"
+          md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+          md-search-text="ctrl.searchText"
+          md-selected-item-change="ctrl.selectedItemChange(item)"
+          md-items="item in ctrl.querySearch(ctrl.searchText)"
+          md-item-text="item.display"
+          placeholder="SFID"
+          required>
+          <md-item-template>
+            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">  {{item.display}}
+            </span>
+          </md-item-template>
+          <md-not-found>
+            No matches found for "{{ctrl.searchText}}".
+          </md-not-found>
+        </md-autocomplete>
+    </md-input-container>
+  </md-card-content>
+</md-card>
+
+<md-card class="animate-show" ng-show="isShowNewTaskForm()">
+  <md-card-content layout-padding>
+    <h2>Start new task, SFID: {{MainCtrl.selectedItem.value}}</h2>
+    <form name="newTaskForm" novalidate>
+
+      <div layout="row">
+        <md-select required flex="40" ng-model="newTask.jobType" placeholder="jobType" class="font-size-16" >
+          <md-option ng-value="jobType" ng-repeat="jobType in jobTypes">{{jobType.display}}</md-option>
+        </md-select>
+
+        <md-select required flex="50" ng-model="newTask.phase" placeholder="Phase" class="font-size-16">
+            <md-option ng-value="phase" ng-repeat="phase in phases">{{phase.name}}</md-option>
+        </md-select>
+      </div>
+
+      <div layout="row">
+        <md-input-container flex>
+          <label>Notes</label>
+          <textarea ng-model="newTask.note" columns="2" md-maxlength="140"></textarea>
+        </md-input-container>
+      </div>
+
+      <md-button ng-disabled="newTaskForm.$invalid" type="submit" class="md-raised md-primary" ng-click="startNewTask(newTask)">Start</md-button>
+    </form>
+  </md-card-content>
+</md-card>
+
+<md-card class="animate-show" ng-show="$storage.current">
+  <md-card-content layout-padding>
+    <h4>Ongoing task for {{$storage.current.data.task.client}} with SFID: {{$storage.current.data.task.sfid}} was started <span am-time-ago="$storage.current.data.task.startTime"></span></h4>
+    <form name="stopTaskForm">
+
+      <md-button type="submit" class="md-raised md-warn" aria-label="user" ng-click="stopOnGoingTask()">Stop task</md-button>
+    </form>
+  </md-card-content>
+</md-card>
+
+<md-card class="animate-show" ng-show="showError">
+  <md-card-content layout-padding>
+    <spam style="color:red">{{errorMessage}}</spam>
+
+  </md-card-content>
+</md-card>

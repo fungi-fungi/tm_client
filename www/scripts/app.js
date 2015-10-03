@@ -9,7 +9,8 @@ angular
     'ngMaterial',
     'ngMdIcons',
     'ngStorage',
-    'angularMoment'
+    'angularMoment',
+    'scDateTime'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -27,17 +28,33 @@ angular
       .when('/main', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
+      })
+      .when('/edit/:ID', {
+        templateUrl: 'views/edit.html',
+        controller: 'EditTaskCtrl'
       });
   })
-  .directive('resize', function ($window) {
-    return function (scope, element) {
-        var w = angular.element($window);
-        var changeHeight = function() {
-          element.css('height', (w.height() -20) + 'px' );
-        };
-        w.bind('resize', function () { changeHeight(); });
-        changeHeight();
-    }
+  .config(function($httpProvider) {
+    $httpProvider.interceptors.push(function($q, $location, $localStorage) {
+      return {
+        'responseError': function(rejection){
+          var defer = $q.defer();
+          if(rejection.status == 401){
+            delete $localStorage.user;
+            $location.path('/');
+          }
+
+          defer.reject(rejection);
+          return defer.promise;
+        }
+      };
+    })
+  })
+  .value('scDateTimeConfig', {
+    defaultTheme: 'material',
+    autosave: false,
+    defaultMode: 'time',
+    compact: true
   })
   .config(function ($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
@@ -45,5 +62,5 @@ angular
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
   })
   .run(function($rootScope){
-    $rootScope.endPoint = 'http://localhost:3000/api/v1/';
+    $rootScope.endPoint = 'https://gwinstalls.com/api/v1/';
   });;
