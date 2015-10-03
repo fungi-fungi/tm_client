@@ -19,33 +19,8 @@
   </head>
   <body>
 
-    <md-toolbar ng-controller="LoginCtrl">
-      <div class="md-toolbar-tools">
-        <md-button class="md-icon-button" ng-click="toggleRight()" aria-label="Settings">
-          <ng-md-icon icon="menu"></ng-md-icon><!-- <md-icon md-svg-icon="menu"></md-icon> -->
-        </md-button>
-        <h2>
-          <span>GW TimeMachine</span>
-        </h2>
-        <span flex></span>
-      </div>
-    </md-toolbar>
-
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-      <md-content ng-controller="LoginCtrl" layout-padding>
-        <form>
-          <md-input-container>
-            <label for="testInput">Test input</label>
-            <input type="text" id="testInput"
-                   ng-model="data" md-autofocus>
-          </md-input-container>
-        </form>
-        <md-button ng-click="close()" class="md-primary">
-          Close Sidenav Right
-        </md-button>
-      </md-content>
-    </md-sidenav>
-
+    <ng-include src=" 'views/toolbar.html' "></ng-include>
+    <ng-include src=" 'views/sidenav.html' "></ng-include>
 
     <div id="main">
         <div ng-view></div>
@@ -76,6 +51,7 @@
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/history.js"></script>
     <script src="scripts/controllers/edit.js"></script>
+    <script src="scripts/controllers/toolbar.js"></script>
     <script src="scripts/services/share_service.js"></script>
     <script src="scripts/services/rest_service.js"></script>
     <script type="text/javascript">
