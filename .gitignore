@@ -5,3 +5,4 @@ www/bower_components/
 .tmp/
 dist/
 platforms/
+typings/
