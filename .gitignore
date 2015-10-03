@@ -1,9 +1,9 @@
-node_modules/
+/node_modules/
 www/bower_components/
 .sass-cache/
 .idea/
 .tmp/
-dist/
-platforms/
-typings/
-plugins/
+/dist/
+/platforms/
+/typings/
+/plugins/
