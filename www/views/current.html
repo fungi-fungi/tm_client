@@ -29,13 +29,19 @@
     <form name="newTaskForm" novalidate>
 
       <div layout="row">
-        <md-select required flex="40" ng-model="newTask.jobType" placeholder="jobType" class="font-size-16" >
-          <md-option ng-value="jobType" ng-repeat="jobType in jobTypes">{{jobType.display}}</md-option>
-        </md-select>
+        <md-radio-group required ng-model="newTask.jobType" class="md-primary">
+          <md-radio-button ng-repeat="jobType in jobTypes"
+                          ng-value="jobType">
+              {{ jobType.display }}<br/>
+          </md-radio-button>
+        </md-radio-group>
 
-        <md-select required flex="50" ng-model="newTask.phase" placeholder="Phase" class="font-size-16">
-            <md-option ng-value="phase" ng-repeat="phase in phases">{{phase.name}}</md-option>
-        </md-select>
+        <md-radio-group required ng-model="newTask.phase" class="md-primary">
+          <md-radio-button ng-repeat="phase in phases"
+                          ng-value="phase">
+              {{ phase.name }}<br/>
+          </md-radio-button>
+        </md-radio-group>
       </div>
 
       <div layout="row">
