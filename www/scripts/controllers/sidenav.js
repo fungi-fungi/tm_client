@@ -3,6 +3,14 @@
 angular.module('gwTimeMachine')
   .controller('SidenavCtrl', function ($scope, $localStorage) {
 
-    $scope.user = $localStorage.user ? $localStorage.user.data.email : "No account yet";
+    $scope.getUserName = function(){
+      var res = "No account yet";
+
+      if ($localStorage.user){
+        res = $localStorage.user.data.email;
+      }
+
+      return res;
+    }
 
 });
