@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('gwTimeMachine')
-  .controller('HistoryCtrl', function ($scope, $location, apiService, shareService, $localStorage) {
+  .controller('HistoryCtrl', function ($scope, $location, $timeout, apiService, shareService, $localStorage) {
 
-    $scope.init = function() {
+    $scope.updateHistory = function() {
 
       apiService.getHistory().then(
         function(res){
@@ -34,7 +34,5 @@ angular.module('gwTimeMachine')
       $location.path('/edit/' + task.id);
       shareService.setData(task);
     };
-
-    $scope.init();
 
 });

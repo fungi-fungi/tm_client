@@ -7,10 +7,12 @@
         </div>
       </md-content>
     </md-tab>
-    <md-tab label="History">
-      <md-content class="md-padding" ng-controller="HistoryCtrl">
-        <ng-include src=" 'views/history.html' "></ng-include>
-      </md-content>
-    </md-tab>
+    <span ng-controller="HistoryCtrl">
+      <md-tab label="History" ng-click="updateHistory()">
+        <md-content class="md-padding" >
+          <ng-include src=" 'views/history.html' "></ng-include>
+        </md-content>
+      </md-tab>
+    </span>
   </md-tabs>
 </md-content>
