@@ -1,4 +1,19 @@
-.font-size-16{
+#sidenav-header {
+  height: 180px;
+  width: 100%;
+  background: #142f46 url('../res/img/arch_logo.png') no-repeat center center;
+  background-size: 80%;
+}
+
+#sidenav-info {
+  height: 40px;
+  width: 100%;
+  background-color: #142f46;
+  color: white;
+  padding-left: 20px;
+}
+
+.font-size-16 {
   font-size: 16px;
 }
 

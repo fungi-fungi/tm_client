@@ -1,15 +1,11 @@
 <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-  <md-content ng-controller="LoginCtrl" layout-padding>
-    <form>
-      <md-input-container>
-        <label for="testInput">Test input</label>
-        <input type="text" id="testInput"
-               ng-model="data" md-autofocus>
-      </md-input-container>
-    </form>
+  <md-content ng-controller="SidenavCtrl">
+
+    <div id="sidenav-header"></div>
+    <div id="sidenav-info">
+      <b>Curren account:</b> </br> {{user}}
+    </div>
+
     <md-divider></md-divider>
-    <md-button ng-click="close()" class="md-primary">
-      Close Sidenav Right
-    </md-button>
   </md-content>
 </md-sidenav>

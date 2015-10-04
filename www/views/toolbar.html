@@ -1,4 +1,4 @@
-<md-toolbar ng-controller="ToolbarCtrl">
+<md-toolbar ng-controller="ToolbarCtrl" class="md-whiteframe-z2" layout="row">
   <div class="md-toolbar-tools">
     <md-button class="md-icon-button" ng-click="toggleRight()" aria-label="Settings">
       <ng-md-icon icon="menu"></ng-md-icon>
@@ -7,5 +7,19 @@
       <span>GW TimeMachine</span>
     </h2>
     <span flex></span>
+
+    <md-menu>
+      <md-button class="md-icon-button" ng-click="$mdOpenMenu()" aria-label="More">
+        <ng-md-icon icon="more_vert"></ng-md-icon>
+      </md-button>
+      <md-menu-content width="3">
+        <md-menu-item>
+          <md-button ng-click="logout()">
+            Logout
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+
   </div>
 </md-toolbar>
