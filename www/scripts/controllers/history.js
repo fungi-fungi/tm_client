@@ -10,7 +10,7 @@ angular.module('gwTimeMachine')
           $scope.history = angular.fromJson(res.data).tasks;
         },
         function(err){
-          console.log(err);
+          toastService.error(err);
         }
       );
     };

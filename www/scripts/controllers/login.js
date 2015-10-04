@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('gwTimeMachine')
-  .controller('LoginCtrl', function ($scope, $location, apiService, $localStorage, $timeout, $mdSidenav, $mdUtil, $log) {
+  .controller('LoginCtrl', function ($scope, $location, apiService, toastService, $localStorage, $timeout, $mdSidenav, $mdUtil, $log) {
 
     $scope.login = function(user) {
 
@@ -24,6 +24,7 @@ angular.module('gwTimeMachine')
     function setFormInvalid(){
       $scope.loginForm.email.$invalid = true;
       $scope.loginForm.password.$invalid = true;
+      toastService.error('Please check entered data');
     }
 
 });

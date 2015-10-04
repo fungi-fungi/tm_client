@@ -17,6 +17,7 @@ angular.module('gwTimeMachine')
         },
         function(err){
           $scope.loginForm.$invalid = true;
+          toastService.error(err);
         }
       );
     }

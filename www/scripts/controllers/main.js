@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('gwTimeMachine')
-  .controller('MainCtrl', function ($scope, $location, $q, apiService, $localStorage, $timeout) {
+  .controller('MainCtrl', function ($scope, $location, $q, apiService, toastService, $localStorage, $timeout) {
 
     var self                = this;
     self.querySearch        = querySearch;
@@ -54,7 +54,7 @@ angular.module('gwTimeMachine')
           $scope.$storage.current = res;
         },
         function(err){
-          showErrorMessage(err);
+          toastService.error(err);
         }
       );
     }
@@ -65,7 +65,7 @@ angular.module('gwTimeMachine')
           delete $scope.$storage.current;
         },
         function(err){
-          showErrorMessage(err);
+          toastService.error(err);
 
           if (err.status == 405){
             delete $scope.$storage.current;
@@ -77,15 +77,5 @@ angular.module('gwTimeMachine')
         }
       );
     }
-
-    function showErrorMessage(message) {
-      $scope.showError = true;
-      $scope.errorMessage = message.data.errors;
-      $timeout(function () { $scope.showError = false; }, 3000);
-    };
-
-    function reportNeededAttention(){
-
-    };
 
 });
