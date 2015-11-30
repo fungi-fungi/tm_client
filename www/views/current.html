@@ -1,64 +1,64 @@
+<div class="current-tab" ng-show="!current">
+  <md-card class="animate-show">
+    <md-card-content>
+      <md-input-container md-no-float class="no-padding-bottom">
+          <md-autocomplete
+            md-selected-item="ctrl.search.selectedItem"
+            md-search-text-change="ctrl.search.searchTextChange(ctrl.searchText)"
+            md-search-text="ctrl.search.searchText"
+            md-selected-item-change="ctrl.search.selectedItemChange(item)"
+            md-items="item in ctrl.querySearch(ctrl.search.searchText)"
+            md-item-text="item.display"
+            placeholder="SFID">
+            <md-item-template>
+              <span md-highlight-text="ctrl.search.searchText" md-highlight-flags="^i">  {{item.display}}
+              </span>
+            </md-item-template>
+            <md-not-found>
+              No matches found for "{{ctrl.search.searchText}}".
+            </md-not-found>
+          </md-autocomplete>
+      </md-input-container>
+    </md-card-content>
+  </md-card>
 
-<md-card class="animate-show" ng-hide="$storage.current">
-  <md-card-content>
-    <md-input-container md-no-float class="no-padding-bottom">
-        <md-autocomplete
-          md-selected-item="ctrl.selectedItem"
-          md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-          md-search-text="ctrl.searchText"
-          md-selected-item-change="ctrl.selectedItemChange(item)"
-          md-items="item in ctrl.querySearch(ctrl.searchText)"
-          md-item-text="item.display"
-          placeholder="SFID"
-          required>
-          <md-item-template>
-            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">  {{item.display}}
-            </span>
-          </md-item-template>
-          <md-not-found>
-            No matches found for "{{ctrl.searchText}}".
-          </md-not-found>
-        </md-autocomplete>
-    </md-input-container>
-  </md-card-content>
-</md-card>
+  <md-card class="animate-show" ng-show="isShowNewTaskForm()">
+    <md-card-content layout-padding>
+      <h2>Start new task, SFID: {{MainCtrl.selectedItem.value}}</h2>
+      <form name="newTaskForm" novalidate>
 
-<md-card class="animate-show" ng-show="isShowNewTaskForm()">
+        <div layout="row">
+          <md-radio-group required ng-model="newTask.jobType" class="md-primary">
+            <md-radio-button ng-repeat="jobType in jobTypes"
+                            ng-value="jobType">
+                {{ jobType.display }}<br/>
+            </md-radio-button>
+          </md-radio-group>
+
+          <md-radio-group required ng-model="newTask.phase" class="md-primary">
+            <md-radio-button ng-repeat="phase in phases"
+                            ng-value="phase">
+                {{ phase.name }}<br/>
+            </md-radio-button>
+          </md-radio-group>
+        </div>
+
+        <div layout="row">
+          <md-input-container flex>
+            <label>Notes</label>
+            <textarea ng-model="newTask.note" columns="2" md-maxlength="140"></textarea>
+          </md-input-container>
+        </div>
+
+        <md-button ng-disabled="newTaskForm.$invalid" type="submit" class="md-raised md-primary" ng-click="startNewTask(newTask)">Start</md-button>
+      </form>
+    </md-card-content>
+  </md-card>
+</div>
+
+<md-card class="animate-show" ng-show="current">
   <md-card-content layout-padding>
-    <h2>Start new task, SFID: {{MainCtrl.selectedItem.value}}</h2>
-    <form name="newTaskForm" novalidate>
-
-      <div layout="row">
-        <md-radio-group required ng-model="newTask.jobType" class="md-primary">
-          <md-radio-button ng-repeat="jobType in jobTypes"
-                          ng-value="jobType">
-              {{ jobType.display }}<br/>
-          </md-radio-button>
-        </md-radio-group>
-
-        <md-radio-group required ng-model="newTask.phase" class="md-primary">
-          <md-radio-button ng-repeat="phase in phases"
-                          ng-value="phase">
-              {{ phase.name }}<br/>
-          </md-radio-button>
-        </md-radio-group>
-      </div>
-
-      <div layout="row">
-        <md-input-container flex>
-          <label>Notes</label>
-          <textarea ng-model="newTask.note" columns="2" md-maxlength="140"></textarea>
-        </md-input-container>
-      </div>
-
-      <md-button ng-disabled="newTaskForm.$invalid" type="submit" class="md-raised md-primary" ng-click="startNewTask(newTask)">Start</md-button>
-    </form>
-  </md-card-content>
-</md-card>
-
-<md-card class="animate-show" ng-show="$storage.current">
-  <md-card-content layout-padding>
-    <h4>Ongoing task for {{$storage.current.data.task.client}} with SFID: {{$storage.current.data.task.sfid}} was started <span am-time-ago="$storage.current.data.task.startTime"></span></h4>
+    <h4>Ongoing task for {{current.client}} with SFID: {{current.sfid}} was started <span am-time-ago="current.startTime"></span></h4>
     <form name="stopTaskForm">
 
       <md-button type="submit" class="md-raised md-warn" aria-label="user" ng-click="stopOnGoingTask()">Stop task</md-button>
@@ -66,9 +66,6 @@
   </md-card-content>
 </md-card>
 
-<md-card class="animate-show" ng-show="showError">
-  <md-card-content layout-padding>
-    <spam style="color:red">{{errorMessage}}</spam>
-
-  </md-card-content>
-</md-card>
+<div layout="row" layout-align="center center" class="full-width" ng-show="isLoading">
+  <md-progress-circular md-mode="indeterminate" class="md-hue-2"></md-progress-circular>
+</div>

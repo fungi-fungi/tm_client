@@ -2,20 +2,19 @@
   "name": "TimeMachine",
   "version": "0.0.1",
   "dependencies": {
-    "jquery": "~1.11.0",
     "angular": "~1.4.1",
-    "angular-route": "~1.4.1",
-    "angular-material": "latest",
     "angular-animate": "~1.4.1",
-    "angular-resource": "~1.4.1",
+    "angular-datetime": "~2.0.0",
+    "angular-material": "latest",
     "angular-material-icons": "~0.5.0",
-    "ngStorage": "~0.3.0",
-    "angular-moment" : "~0.10.2",
-    "sc-date-time": "~1.1.2"
+    "angular-moment": "~0.10.2",
+    "angular-resource": "~1.4.1",
+    "angular-route": "~1.4.1",
+    "jquery": "~1.11.0",
+    "ngStorage": "~0.3.0"
   },
   "devDependencies": {
     "chai": "~3.2.0",
     "mocha": "~2.2.5"
   }
 }
-

@@ -1,30 +1,35 @@
 'use strict';
 
 angular.module('gwTimeMachine')
-  .controller('LoginCtrl', function ($scope, $location, apiService, toastService, $localStorage, $timeout, $mdSidenav, $mdUtil, $log) {
+  .controller('LoginCtrl', function ($scope, $location, $localStorage, toastService, Session) {
+
+    $scope.isLoading = false;
 
     $scope.login = function(user) {
 
-      apiService.login(user).then(
-        function(res){
-          console.log(res);
-          if (res.data.data.authentication_token){
+      $scope.isLoading = true;
+
+      Session.requestLogin({email: user.email, password: user.password}, {},
+        function(res) {
+          if (res.data.authentication_token){
             $localStorage.user = res.data;
             $location.path('/main');
           }else{
-            setFormInvalid();
+            setFormInvalid({"data": {"errors":"Something went wrong, try again later"}});
+            $scope.isLoading = false;
           }
         },
         function(err){
-          setFormInvalid();
+          setFormInvalid(err);
+          $scope.isLoading = false;
         }
       );
     };
 
-    function setFormInvalid(){
+    function setFormInvalid(err){
       $scope.loginForm.email.$invalid = true;
       $scope.loginForm.password.$invalid = true;
-      toastService.error('Please check entered data');
+      toastService.error(err.data.errors);
     }
 
 });

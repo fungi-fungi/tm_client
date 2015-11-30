@@ -1,23 +1,20 @@
 'use strict';
 
 angular.module('gwTimeMachine')
-  .controller('EditTaskCtrl', function ($scope, $routeParams, $location, shareService, apiService) {
+  .controller('EditTaskCtrl', function ($scope, $location, toastService, shareService, Task) {
     $scope.task = shareService.getData();
     $scope.task.startTime = new Date($scope.task.startTime);
     $scope.task.endTime = new Date($scope.task.endTime);
 
-    $scope.timePickerOptions = {
-      disableTimeRanges: [['12:00am', $scope.task.startTime]]
-    }
-
     $scope.saveChanges = function(task){
-      apiService.editTaskTimes(task).then(
+      Task.update({task: $scope.task.id}, task,
         function(res){
           $location.path('/main');
         },
         function(err){
-          $scope.loginForm.$invalid = true;
-          toastService.error(err);
+          $scope.editForm.startTime.$invalid = true;
+          $scope.editForm.endTime.$invalid = true;
+          toastService.error(err.data.errors);
         }
       );
     }

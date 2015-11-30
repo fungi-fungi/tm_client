@@ -1,14 +1,16 @@
 <md-content>
   <md-tabs md-dynamic-height md-border-bottom>
-    <md-tab label="Current">
-      <md-content class="md-padding">
-        <div class="slide-animate" ng-controller="MainCtrl as ctrl">
-          <ng-include src=" 'views/current.html' "></ng-include>
-        </div>
-      </md-content>
-    </md-tab>
+    <span ng-controller="MainCtrl as ctrl">
+      <md-tab label="Current" md-on-select="updated=false">
+        <md-content class="md-padding">
+          <div class="slide-animate">
+            <ng-include src=" 'views/current.html' "></ng-include>
+          </div>
+        </md-content>
+      </md-tab>
+    </span>
     <span ng-controller="HistoryCtrl">
-      <md-tab label="History" ng-click="updateHistory()">
+      <md-tab label="History" md-on-select="updated=false">
         <md-content class="md-padding" >
           <ng-include src=" 'views/history.html' "></ng-include>
         </md-content>

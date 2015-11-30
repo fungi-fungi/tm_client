@@ -1,21 +1,24 @@
 <md-card>
   <md-card-content layout-padding>
     <h2>{{task.sfid}},  {{task.client}}</h2>
-    <p>Duration: <b>{{task.startTime | amCalendar}}</b>  -  <b>{{task.endTime | amCalendar}}</b></p>
+    <p>Duration: <b>{{task.startTime | date: 'h:mm a'}}</b>  -  <b>{{task.endTime | date: 'h:mm a'}}</b></p>
 
     <form name="editForm">
 
       <md-input-container>
         <label>Start time</label>
-        <input type="time" ng-model="task.startTime" required>
+        <input type="datetime-local" ng-model="task.startTime" name="startTime" required>
       </md-input-container>
 
       <md-input-container>
         <label>End time</label>
-        <input type="time" ng-model="task.endTime" ngMin="task.startTime" required>
+        <input type="datetime-local" ng-model="task.endTime" name="endTime" ngMin="task.startTime" required>
       </md-input-container>
 
       <md-button ng-disabled="!editForm.$dirty || editForm.$invalid" type="submit" class="md-raised md-primary" ng-click="saveChanges(task)">Save</md-button>
     </form>
   </md-card-content>
 </md-card>
+<div layout="row" layout-align="center center" class="full-width-login" ng-show="isLoading">
+  <md-progress-circular md-mode="indeterminate" class="md-hue-2"></md-progress-circular>
+</div>

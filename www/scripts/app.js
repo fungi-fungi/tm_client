@@ -10,7 +10,7 @@ angular
     'ngMdIcons',
     'ngStorage',
     'angularMoment',
-    'scDateTime'
+    'datetime'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -35,6 +35,20 @@ angular
       });
   })
   .config(function($httpProvider) {
+    $httpProvider.interceptors.push(function($localStorage) {
+      return {
+        request: function (config) {
+
+          if ($localStorage.user){
+            config.headers['X-User-Email'] = $localStorage.user.email;
+            config.headers['X-User-Token'] = $localStorage.user.authentication_token;
+          }
+          return config;
+        }
+      };
+    })
+  })
+  .config(function($httpProvider) {
     $httpProvider.interceptors.push(function($q, $location, $localStorage) {
       return {
         'responseError': function(rejection){
@@ -50,11 +64,33 @@ angular
       };
     })
   })
-  .value('scDateTimeConfig', {
-    defaultTheme: 'material',
-    autosave: false,
-    defaultMode: 'time',
-    compact: true
+  .config(function($httpProvider) {
+    $httpProvider.interceptors.push(function($localStorage) {
+      return {
+        request: function(config) {
+
+          var networkState = navigator.connection.type;
+
+          if(networkState === 'none' && !($localStorage.noInternetConnection)){
+            $localStorage.noInternetConnection = true;
+            document.addEventListener(
+              "deviceready",
+              function(){
+                navigator.notification.confirm(
+                  'This app requires internet connection, you need to connect to internet !',
+                  (function(){navigator.app.exitApp()}),
+                  'No internet connection detected',
+                  ['OK']
+                );
+                delete $localStorage.noInternetConnection;
+              },
+              false
+            );
+          }
+          return config;
+        }
+      };
+    })
   })
   .config(function ($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
@@ -63,4 +99,4 @@ angular
   })
   .run(function($rootScope){
     $rootScope.endPoint = 'https://gwinstalls.com/api/v1/';
-  });;
+  });

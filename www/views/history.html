@@ -5,3 +5,6 @@
     <md-button class="md-raised md-primary" layout-align="right" ng-click="edit(task)">Edit</md-button>
   </md-card-content>
 </md-card>
+<div layout="row" layout-align="center center" class="full-width" ng-show="isLoading">
+  <md-progress-circular md-mode="indeterminate" class="md-hue-2"></md-progress-circular>
+</div>

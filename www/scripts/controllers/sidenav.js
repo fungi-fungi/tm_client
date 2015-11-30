@@ -7,7 +7,7 @@ angular.module('gwTimeMachine')
       var res = "No account yet";
 
       if ($localStorage.user){
-        res = $localStorage.user.data.email;
+        res = $localStorage.user.email;
       }
 
       return res;

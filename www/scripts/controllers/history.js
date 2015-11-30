@@ -1,16 +1,31 @@
 'use strict';
 
 angular.module('gwTimeMachine')
-  .controller('HistoryCtrl', function ($scope, $location, $timeout, apiService, shareService, $localStorage) {
+  .controller('HistoryCtrl', function ($scope, $location, shareService, toastService, $localStorage, User) {
 
-    $scope.updateHistory = function() {
+    $scope.isLoading = true;
 
-      apiService.getHistory().then(
+    $scope.$watch('updated', function(){
+      if ($scope.updated == false){
+        updateHistory();
+      }
+    });
+
+    function updateHistory(){
+      User.history({id: $localStorage.user.id, action: 'history'},
         function(res){
-          $scope.history = angular.fromJson(res.data).tasks;
+          if (!res.errors){
+            $scope.history = angular.fromJson(res);
+          }else{
+            $scope.history = null;
+          }
+          $scope.updated = true;
+          $scope.isLoading = false;
         },
         function(err){
-          toastService.error(err);
+          $scope.updated = true;
+          $scope.isLoading = false;
+          toastService.error(err.data.errors);
         }
       );
     };
